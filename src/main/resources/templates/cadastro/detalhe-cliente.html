@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de novo cliente</title>
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+ <style type="text/css">
+ 	body {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+ </style>
+</head>
+<body>
+	<h5 style="text-align: center;">Detalhe do cliente</h5>
+	<fieldset>
+		<legend>Detalhe  cliente</legend>
+	  		<div class="row">
+		    <form class="col s12" action="salvarcliente" method="post" th:object="${clienteobj}" id="formcliente">
+		      
+		      <div class="row">
+		        
+		        <div class="input-field col s6" style="display: none;">
+		          <i class="material-icons prefix">fingerprint</i>
+		          <input name="id" id="id" type="text" class="validate" th:field="*{id}" disabled value="">
+		          <label for="id">Ordem de Serviço</label>
+		        </div>  
+		      </div>   
+		      
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <i class="material-icons prefix">account_circle</i>
+		          <input name="nome" id="nome" type="text" class="validate" th:field="*{nome}" disabled value="">
+		          <label for="nome">Nome</label>
+		        </div>  
+		      </div>
+		      
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <i class="material-icons prefix">home</i>         
+		          <input name="endereco" id="endereco" type="text" class="validate" th:field="*{endereco}" disabled value="">
+		          <label for="endereco">Endereço</label>
+		        </div>  
+		      </div>
+		      
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <i class="material-icons prefix">phone</i>
+		          <input name="telefone" id="telefone" type="text" class="validate" th:field="*{telefone}" disabled value="">
+		          <label for="telefone">Telefone</label>
+		        </div>  
+		      </div>
+		      
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <i class="material-icons prefix">mail_outline</i>
+		          <input id="email" type="email" class="validate" th:field="*{email}" disabled value="">
+		          <label for="email">Email</label>
+		        </div>
+		      </div>
+		      
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <i class="material-icons prefix">laptop_mac</i>
+		          <input name="equipamento" id="equipamento" type="text" class="validate" th:field="*{equipamento}" disabled value="">
+		          <label for="equipamento">Equipamento (marca/modelo)</label>
+		        </div>  
+		      </div>
+		      
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <i class="material-icons prefix">build</i>
+		          <input name="problema" id="problema" type="text" class="validate" th:field="*{problema}" disabled value="">
+		          <label for="problema">Problema</label>
+		        </div>  
+		      </div>
+				
+			  <div class="row">
+		        <div class="input-field col s3">
+		          <i class="material-icons prefix">date_range</i>
+		          <input name="entrada" id="entrada" type="date" placeholder="Data de entrada do equipamento" th:field="*{entrada}" disabled value="">
+		          <label for=entrada class="active">Entrada</label>
+			     </div> 
+			        
+		        <div class="input-field col s3">
+		          <i class="material-icons prefix">date_range</i>
+		          <input name="saida" id="saida" type="date" placeholder="Data de saida do equipamento" th:field="*{saida}" disabled value="">
+		          <label for=saida class="active">Saída</label>
+		        </div>
+		        
+		        <div class="input-field col s3">
+			        <label for="situacao" class="active">Selecione</label>
+					  <select class="browser-default" th:field="*{situacao}" disabled value="">
+	<!-- 					    <option value="" disabled selected>Situação</option> -->
+					    <option value="1">Em aberto</option>
+					    <option value="2">Resolvido</option>
+					    <option value="3">Não resolvido</option>
+					  </select>
+				 </div>
+		      </div>
+				
+				<a href="/cadastro-cliente">Voltar</a>
+			</form>    
+	   </div>
+   </fieldset>
+	 <footer class="page-footer">
+	     <div class="footer-copyright">
+	       <div class="container">
+	       	© 2020 João Paulo da Mata Mendes
+	       </div>
+	     </div>
+      </footer>
+</body>
+</html>

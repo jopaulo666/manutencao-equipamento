@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <!-- Compiled and minified CSS -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+ <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <style type="text/css">
+	body{
+		padding: 0;
+		margin: 0;
+		background: #ddd;
+	}
+	.btn{
+		margin-top: 10px;
+
+	}
+	.container{
+		margin:100px auto;
+		width: 35%;
+
+	}
+	@media(max-width: 952px){
+		.container{
+			width: 60%;
+		}
+	}
+		@media(max-width: 475px){
+		.container{
+			width: 80%;
+		}
+	}
+		
+</style>
+</head>
+<body>
+
+	<div class="container">
+	<div class="row card hoverable">
+		<div class="card-content ">
+		<h4 class="center blue-text">Login</h4>
+		<form th:action="@{/login}" method="post" class="row s12">
+		<div class="col s12">
+			
+			<div class="input-field">
+				<input type="text" name="username" placeholder="Usuário">
+			</div>
+		</div>
+			<div class="col s12">
+			<div class="input-field">
+				<input type="password" name="password" placeholder="Senha">
+			</div>
+		</div>
+		<div class="col s12">
+			<p><label><input type="checkbox"></label></p>
+		</div>
+		<div class="col s12 center">
+			<button name="submit" type="submit" value="submit" class="btn btn-large waves-effect waves-light blue">Entrar
+				<i class="material-icons right">send</i>			
+			</button>
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</body>
+</html>
