@@ -7,10 +7,18 @@
 <title>Cadastro de novo cliente</title>
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
  <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
 <!-- Compiled and minified JavaScript -->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<!--  jQuery Mask Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
  <style type="text/css">
  	body {
 	margin-left: 5%;
@@ -26,9 +34,7 @@
 		<legend>Cadastro de novo cliente</legend>
 	  	<div class="row" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE')">		
 	
-			<form class="col s12" action="salvarcliente" method="post" th:object="${clienteobj}" id="formcliente">
-			
-			
+			<form class="col s12" action="salvarcliente" method="post" th:object="${clienteobj}" id="formcliente">			
 			
 			<div th:each="m : ${msg}">
 				<span th:text="${m}"> </span>
@@ -62,7 +68,7 @@
 		      <div class="row">
 		        <div class="input-field col s6">
 		          <i class="material-icons prefix">phone</i>
-		          <input name="telefone" id="telefone" type="text" class="validate" th:field="*{telefone}">
+		          <input name="telefone" id="telefone" type="text" class="validate" th:field="*{telefone}" onkeypress="$(this).mask('(00) 00000-0000')">
 		          <label for="telefone">Telefone</label>
 		        </div>  
 		      </div>
@@ -126,7 +132,7 @@
 			</form>    
 	  	</div>
   	</fieldset>
-
+	<br>
 	
 	<fieldset>
 		<legend>Campo de pesquisa</legend>
@@ -147,7 +153,8 @@
 			</form>
 		</div>
 	</fieldset>
-
+	<br>
+	
 	<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
 		<div class="col s12">
 			<table class="striped">
@@ -168,7 +175,7 @@
 		      </table>
 	      </div>
       </div>
-	 
+      
 	 <footer class="page-footer">
 	     <div class="footer-copyright">
 	       <div class="container">
@@ -176,7 +183,6 @@
 	       </div>
 	     </div>
       </footer>
-      
-      
+
 </body>
 </html>
