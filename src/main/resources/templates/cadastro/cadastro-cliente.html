@@ -108,9 +108,9 @@
 			        <label for="situacao" class="active">Selecione</label>
 					  <select class="browser-default" th:field="*{situacao}">
 <!-- 					    <option value="" disabled selected>Situação</option> -->
-					    <option value="1">Em aberto</option>
-					    <option value="2">Resolvido</option>
-					    <option value="3">Não resolvido</option>
+					    <option value="Em aberto">Em aberto</option>
+					    <option value="Resolvido">Resolvido</option>
+					    <option value="Não resolvido">Não resolvido</option>
 					  </select>
 				 </div>
 		      </div>
@@ -160,6 +160,7 @@
 					<td th:text = "${cliente.email}"></td>
 					<td th:text = "${cliente.equipamento}"></td>
 <!-- 					<td th:text = "${cliente.problema}"></td> -->
+					<td th:text = "${cliente.situacao}"></td>
 					<td><a th:href="@{/editarcliente/{idcliente}(idcliente=${cliente.id})}">Editar</a></td>
 					<td><a th:href="@{/excluircliente/{idcliente}(idcliente=${cliente.id})}">Excluir</a></td>
 		          <tr>
