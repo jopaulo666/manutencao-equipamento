@@ -27,7 +27,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 			.antMatchers(HttpMethod.GET, "/cadastro-cliente").hasAnyRole("ADMIN")
 			.anyRequest().authenticated()
 			.and().formLogin().permitAll()
-			.loginPage("/login")
+			.loginPage("/login") // tela de login
 			.defaultSuccessUrl("/cadastro-cliente")
 			.failureUrl("/login?error=true")
 			.and().logout().logoutSuccessUrl("/login")
