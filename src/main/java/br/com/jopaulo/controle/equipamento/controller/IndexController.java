@@ -1,4 +1,4 @@
-package br.com.jopaulo.controle.equipamento;
+package br.com.jopaulo.controle.equipamento.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
