@@ -93,7 +93,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping("**/pesquisarcliente")
-	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa) {
+	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa, @RequestParam("pesqsituacao") String pesqsituacao) {
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
 		andView.addObject("clientes", clienteRepository.findByNomeContainingIgnoreCase(nomepesquisa));
 		andView.addObject("clienteobj", new Cliente());
