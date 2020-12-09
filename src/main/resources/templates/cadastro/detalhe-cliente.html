@@ -25,7 +25,7 @@
 		      
 		      <div class="row">
 		        
-		        <div class="input-field col s6" style="display: none;">
+		        <div class="input-field col s6">
 		          <i class="material-icons prefix">fingerprint</i>
 		          <input name="id" id="id" type="text" class="validate" th:field="*{id}" disabled value="">
 		          <label for="id">Ordem de Serviço</label>
@@ -41,23 +41,12 @@
 		      </div>
 		      
 		      <div class="row">
-		        <div class="input-field col s6">
-		          <i class="material-icons prefix">home</i>         
-		          <input name="endereco" id="endereco" type="text" class="validate" th:field="*{endereco}" disabled value="">
-		          <label for="endereco">Endereço</label>
-		        </div>  
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s6">
+		        <div class="input-field col s3">
 		          <i class="material-icons prefix">phone</i>
 		          <input name="telefone" id="telefone" type="text" class="validate" th:field="*{telefone}" disabled value="">
 		          <label for="telefone">Telefone</label>
-		        </div>  
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s6">
+		        </div>
+		        <div class="input-field col s3">
 		          <i class="material-icons prefix">mail_outline</i>
 		          <input id="email" type="email" class="validate" th:field="*{email}" disabled value="">
 		          <label for="email">Email</label>
@@ -65,11 +54,39 @@
 		      </div>
 		      
 		      <div class="row">
-		        <div class="input-field col s6">
-		          <i class="material-icons prefix">laptop_mac</i>
-		          <input name="equipamento" id="equipamento" type="text" class="validate" th:field="*{equipamento}" disabled value="">
-		          <label for="equipamento">Equipamento (marca/modelo)</label>
-		        </div>  
+		        <div class="input-field col s3">
+		          <i class="material-icons prefix">home</i>         
+		          <input name="cep" id="cep" type="text" class="validate" th:field="*{cep}" disabled value="">
+		          <label for="cep">CEP</label>
+		        </div>
+		        <div class="input-field col s3">
+		          <input name="bairro" id="bairro" type="text" class="validate" th:field="*{bairro}" disabled value="">
+		          <label for="bairro">Bairro</label>
+		        </div>
+		      </div>
+		      
+		      <div class="row">
+		        <div class="input-field col s5">
+		          <i class="material-icons prefix">home</i>         
+		          <input name="endereco" id="rua" type="text" class="validate" th:field="*{endereco}" disabled value="">
+		          <label for="endereco">Endereço</label>
+		        </div>
+		        <div class="input-field col s1">
+		          <input name="numero" id="numero" type="text" class="validate" th:field="*{numero}" disabled value="">
+		          <label for="numero">N°</label>
+		        </div>
+		      </div>
+		      
+		      <div class="row">
+		        <div class="input-field col s5">
+		          <i class="material-icons prefix">home</i>         
+		          <input name="cidade" id="cidade" type="text" class="validate" th:field="*{cidade}" disabled value="">
+		          <label for="cidade">Cidade</label>
+		        </div>
+		        <div class="input-field col s1">
+		          <input name=uf id="uf" type="text" class="validate" th:field="*{uf}" disabled value="">
+		          <label for="uf">Estado</label>
+		        </div>
 		      </div>
 		      
 		      <div class="row">
