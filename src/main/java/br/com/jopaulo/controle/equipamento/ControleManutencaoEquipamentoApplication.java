@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EntityScan(basePackages = "br.com.jopaulo.controle.equipamento.model")
-@ComponentScan(basePackages = "br.*")
+@ComponentScan(basePackages = "br.com.jopaulo.controle.equipamento.controller")
 @EnableJpaRepositories(basePackages = "br.com.jopaulo.controle.equipamento.repository")
 @EnableTransactionManagement
 @EnableWebMvc
