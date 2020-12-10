@@ -13,6 +13,9 @@ import br.com.jopaulo.controle.equipamento.model.Cliente;
 @Transactional
 public interface ClienteRepository extends CrudRepository<Cliente, Long>{
 
-	@Query("select c from Cliente c where c.nome like %?1%")
-	List<Cliente> findByNomeContainingIgnoreCase(String nome);
+	@Query("select c from Cliente c where lower(c.nome) like lower('%'||?1||'%')")
+	List<Cliente> findByNameContainingIgnoreCase(String nome);
+	
+	@Query("select c from Cliente c where c.nome like %?1% and c.situacao = ?2")
+	List<Cliente> findByNameSituacaoContainingIgnoreCase(String nome, String situacao);
 }

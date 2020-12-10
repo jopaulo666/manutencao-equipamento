@@ -29,6 +29,7 @@ public class ClienteController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastro-cliente")
 	public ModelAndView inicio() {
+		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
 		andView.addObject("clienteobj", new Cliente());
 		
@@ -37,6 +38,7 @@ public class ClienteController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarcliente")
 	public ModelAndView salvar(@Valid Cliente cliente, BindingResult bindingResult) {
+		
 		if (bindingResult.hasErrors()) {
 			ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
 			Iterable<Cliente> clientesIt = clienteRepository.findAll();
@@ -64,6 +66,7 @@ public class ClienteController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/listaclientes")
 	public ModelAndView clientes() {
+		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
 		Iterable<Cliente> clientesIt = clienteRepository.findAll();
 		andView.addObject("clientes", clientesIt);
@@ -73,6 +76,7 @@ public class ClienteController {
 	
 	@GetMapping("/editarcliente/{idcliente}")
 	public ModelAndView editar(@PathVariable("idcliente") Long idcliente) {
+		
 		Optional<Cliente> cliente = clienteRepository.findById(idcliente);
 		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
@@ -83,6 +87,7 @@ public class ClienteController {
 	
 	@GetMapping("/excluircliente/{idcliente}")
 	public ModelAndView excluir(@PathVariable("idcliente") Long idcliente) {
+		
 		clienteRepository.deleteById(idcliente);
 		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
@@ -94,8 +99,17 @@ public class ClienteController {
 	
 	@PostMapping("**/pesquisarcliente")
 	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa, @RequestParam("pesqsituacao") String pesqsituacao) {
+		
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		
+		if (pesqsituacao != null && !pesqsituacao.isEmpty()) {
+			clientes = clienteRepository.findByNameSituacaoContainingIgnoreCase(nomepesquisa, pesqsituacao);
+		} else {
+			clientes = clienteRepository.findByNameContainingIgnoreCase(nomepesquisa);
+		}
+		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
-		andView.addObject("clientes", clienteRepository.findByNomeContainingIgnoreCase(nomepesquisa));
+		andView.addObject("clientes", clientes);
 		andView.addObject("clienteobj", new Cliente());
 		
 		return andView;
@@ -104,6 +118,7 @@ public class ClienteController {
 	
 	@GetMapping("/detalhecliente/{idcliente}")
 	public ModelAndView dedetalheCliente(@PathVariable("idcliente") Long idcliente) {
+		
 		Optional<Cliente> cliente = clienteRepository.findById(idcliente);
 		
 		ModelAndView andView = new ModelAndView("cadastro/detalhe-cliente");
