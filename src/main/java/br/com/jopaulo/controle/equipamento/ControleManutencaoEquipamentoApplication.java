@@ -12,11 +12,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-//@EntityScan(basePackages = "br.com.jopaulo.controle.equipamento.model")
-//@ComponentScan(basePackages = "br.com.jopaulo.controle.equipamento.controller")
-//@EnableJpaRepositories(basePackages = "br.com.jopaulo.controle.equipamento.repository")
-//@EnableTransactionManagement
-//@EnableWebMvc
+@EntityScan(basePackages = "br.com.jopaulo.controle.equipamento.model")
+@ComponentScan(basePackages = "br.*")
+@EnableJpaRepositories(basePackages = "br.com.jopaulo.controle.equipamento.repository")
+@EnableTransactionManagement
+@EnableWebMvc
 public class ControleManutencaoEquipamentoApplication implements WebMvcConfigurer{
 
 	public static void main(String[] args) {
