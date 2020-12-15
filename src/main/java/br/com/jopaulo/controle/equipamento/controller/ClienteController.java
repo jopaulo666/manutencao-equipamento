@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteRepository  clienteRepository;
+	
+	@Autowired
+	private ReportUtil reportUtil;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastro-cliente")
 	public ModelAndView inicio() {
@@ -116,8 +121,16 @@ public class ClienteController {
 		
 	}
 	
+	@GetMapping("**/pesquisarcliente")
+	public void relatorio(@RequestParam("nomepesquisa") String nomepesquisa, 
+			@RequestParam("pesqsituacao") String pesqsituacao,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		
+	}
+	
 	@GetMapping("/detalhecliente/{idcliente}")
-	public ModelAndView dedetalheCliente(@PathVariable("idcliente") Long idcliente) {
+	public ModelAndView detalheCliente(@PathVariable("idcliente") Long idcliente) {
 		
 		Optional<Cliente> cliente = clienteRepository.findById(idcliente);
 		
