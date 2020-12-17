@@ -125,7 +125,40 @@ public class ClienteController {
 	public void relatorio(@RequestParam("nomepesquisa") String nomepesquisa, 
 			@RequestParam("pesqsituacao") String pesqsituacao,
 			HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws Exception {
+		
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		
+		if (pesqsituacao != null && !pesqsituacao.isEmpty() && nomepesquisa != null && !nomepesquisa.isEmpty()) {
+			clientes = clienteRepository.findByNameSituacaoContainingIgnoreCase(nomepesquisa, pesqsituacao);
+		}else if (nomepesquisa != null && !nomepesquisa.isEmpty()) {
+			clientes = clienteRepository.findByNameContainingIgnoreCase(nomepesquisa);
+		} else if (pesqsituacao != null && !pesqsituacao.isEmpty()) {
+			clientes = clienteRepository.findBySituacao(pesqsituacao);
+		} else {
+			Iterable<Cliente> iterable = clienteRepository.findAll();
+			for (Cliente cliente : iterable) {
+				clientes.add(cliente);
+			}
+		}
+		
+		// chama o serviço que faz a geração do pdf
+		byte[] pdf = reportUtil.gerarRelatorio(clientes, "cliente", request.getServletContext());
+		
+		// tamanho da resposta
+		response.setContentLength(pdf.length);
+		
+		//tipo de arquivo (nesse caso, todos)
+		response.setContentType("application/octet-stream");
+		
+		// Define o cabeçalho da resposta
+		String headerKey = "Content-Disposition";		
+		String headerValue = String.format("attachment; filename=\"%s\"", "relatorio.pdf");
+		response.setHeader(headerKey, headerValue);
+		
+		// finaliza a resposta para o navegador
+		response.getOutputStream().write(pdf);
+		
 		
 	}
 	
