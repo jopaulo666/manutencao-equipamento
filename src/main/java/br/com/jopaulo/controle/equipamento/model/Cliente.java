@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +49,8 @@ public class Cliente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date saida;
 
-	private String situacao;
+	@Enumerated(EnumType.STRING)
+	private Situacao situacao;
 
 	private String cep;
 
@@ -135,11 +138,11 @@ public class Cliente implements Serializable {
 		this.saida = saida;
 	}
 
-	public String getSituacao() {
+	public Situacao getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(String situacao) {
+	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
 	}
 
