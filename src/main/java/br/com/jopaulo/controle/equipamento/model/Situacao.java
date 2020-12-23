@@ -6,9 +6,8 @@ public enum Situacao {
 	RESOLVIDO("Resolvido"), 
 	NAO_RESOLVIDO("Não resolvido");
 
-	private String nome;
-	
-//	private String valor;
+	private String nome;	
+	private String valor;
 
 	private Situacao(String nome) {
 		this.nome = nome;
@@ -22,16 +21,11 @@ public enum Situacao {
 		this.nome = nome;
 	}
 
-//	public String getValor() {
-//		return valor = this.name();
-//	}
-//
-//	public void setValor(String valor) {
-//		this.valor = valor;
-//	}
-	
-	@Override
-	public String toString() {
-		return this.name();
+	public String getValor() {
+		return valor = this.name();
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
 	}
 }

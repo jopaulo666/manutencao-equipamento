@@ -138,7 +138,7 @@
 			        <label for="situacao" class="active">Situação</label>
 					  <select class="browser-default" th:field="*{situacao}" id="situacao">
 					  	<option th:each="s : ${T(br.com.jopaulo.controle.equipamento.model.Situacao).values()}"
-					  		 th:value="${s}" th:text="${s.nome}"></option>
+					  		 th:value="${s.valor}" th:text="${s.nome}"></option>
 <!-- 					    <option value="" disabled selected>Situação</option> -->
 <!-- 					    <option value="Em aberto">Em aberto</option> -->
 <!-- 					    <option value="Resolvido">Resolvido</option> -->
