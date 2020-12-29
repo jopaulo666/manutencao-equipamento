@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
@@ -61,6 +62,17 @@ public class Cliente implements Serializable {
 	private String bairro;
 
 	private String uf;
+	
+	@Lob
+	private byte[] foto;
+	
+	public byte[] getFoto() {
+		return foto;
+	}
+	
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
 
 	public Long getId() {
 		return id;

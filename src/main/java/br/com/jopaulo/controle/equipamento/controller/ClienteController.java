@@ -1,5 +1,6 @@
 package br.com.jopaulo.controle.equipamento.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.jopaulo.controle.equipamento.model.Cliente;
@@ -41,8 +43,8 @@ public class ClienteController {
 		return andView;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "**/salvarcliente")
-	public ModelAndView salvar(@Valid Cliente cliente, BindingResult bindingResult) {
+	@RequestMapping(method = RequestMethod.POST, value = "**/salvarcliente", consumes = {"multipart/form-data"})
+	public ModelAndView salvar(@Valid Cliente cliente, BindingResult bindingResult, final MultipartFile file) throws IOException {
 		
 		if (bindingResult.hasErrors()) {
 			ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
@@ -57,6 +59,15 @@ public class ClienteController {
 			
 			andView.addObject("msg", msg);
 			return andView;
+		}
+		
+		if (file.getSize() > 0) {
+			cliente.setFoto(file.getBytes());
+		} else {
+			if (cliente.getId() != null && cliente.getId() > 0) { // editando
+				byte[] fotoTemp = clienteRepository.findById(cliente.getId()).get().getFoto();
+				cliente.setFoto(fotoTemp);
+			}
 		}
 		
 		clienteRepository.save(cliente);

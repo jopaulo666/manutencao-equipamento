@@ -19,6 +19,10 @@
 <!--  jQuery Mask Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 
+<!-- Campo Data -->    
+ <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+ <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css">
+
  <style type="text/css">
  	body {
 	margin-left: 5%;
@@ -34,127 +38,129 @@
 		<legend>Cadastro de novo cliente</legend>
 	  	<div class="row" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE')">		
 	
-			<form class="col s12" action="salvarcliente" method="post" th:object="${clienteobj}" id="formcliente">			
+			<form class="col s12" action="salvarcliente" method="post" th:object="${clienteobj}" id="formcliente" 
+				enctype="multipart/form-data">			
 			
-			<div th:each="m : ${msg}">
-				<span th:text="${m}"> </span>
-			</div>
-			<br />
-			
-		      <div class="row">
-		        <div class="input-field col s1">
-				  <i class="material-icons prefix">fingerprint</i>
-		          <input name="id" th:field="*{id}" readonly="readonly">
-		        </div>  
-		      </div>      
-		      
-		      <div class="row">
-		        <div class="input-field col s6">
-		          <i class="material-icons prefix">account_circle</i>
-		          <input name="nome" id="nome" type="text" class="validate" th:field="*{nome}">
-		          <label for="nome">Nome</label>
-		        </div>  
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s3">
-		          <i class="material-icons prefix">phone</i>
-		          <input name="telefone" id="telefone" type="text" class="validate" th:field="*{telefone}" onkeypress="$(this).mask('(00) 00000-0000')">
-		          <label for="telefone">Telefone</label>
-		        </div>
-		        <div class="input-field col s3">
-		          <i class="material-icons prefix">mail_outline</i>
-		          <input id="email" type="email" class="validate" th:field="*{email}">
-		          <label for="email">Email</label>
-		        </div>
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s3">
-		          <i class="material-icons prefix">room</i>         
-		          <input name="cep" id="cep" type="text" class="validate" th:field="*{cep}" onkeypress="$(this).mask('00000-000')">
-		          <label for="cep">CEP</label>
-		        </div>
-		        <div class="input-field col s3">
-		          <input name="bairro" id="bairro" type="text" class="validate" th:field="*{bairro}">
-		          <label for="bairro">Bairro</label>
-		        </div>
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s5">
-		          <i class="material-icons prefix">home</i>         
-		          <input name="endereco" id="rua" type="text" class="validate" th:field="*{endereco}">
-		          <label for="endereco">Endereço</label>
-		        </div>
-		        <div class="input-field col s1">
-		          <input name="numero" id="numero" type="text" class="validate" th:field="*{numero}">
-		          <label for="numero">N°</label>
-		        </div>
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s5">
-		          <i class="material-icons prefix">location_city</i>         
-		          <input name="cidade" id="cidade" type="text" class="validate" th:field="*{cidade}">
-		          <label for="cidade">Cidade</label>
-		        </div>
-		        <div class="input-field col s1">
-		          <input name=uf id="uf" type="text" class="validate" th:field="*{uf}">
-		          <label for="uf">Estado</label>
-		        </div>
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s6">
-		          <i class="material-icons prefix">laptop_mac</i>
-		          <input name="equipamento" id="equipamento" type="text" class="validate" th:field="*{equipamento}">
-		          <label for="equipamento">Equipamento (marca/modelo)</label>
-		        </div>  
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s12">
-		          <i class="material-icons prefix">build</i>
-		          <input name="problema" id="problema" type="text" class="validate" th:field="*{problema}" >
-		          <label for="problema">Problema</label>
-		        </div>  
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s3">
-		          <i class="material-icons prefix">date_range</i>
-		          <input name="entrada" id="entrada" type="date" placeholder="Data de entrada do equipamento" th:field="*{entrada}" >
-		          <label for=entrada class="active">Entrada</label>
-		        </div> 
-		        
-		        <div class="input-field col s3">
-		          <i class="material-icons prefix">date_range</i>
-		          <input name="saida" id="saida" type="date" placeholder="Data de saida do equipamento" th:field="*{saida}" >
-		          <label for=saida class="active">Saída</label>
-		        </div>
-		        
-		        <div class="input-field col s3">
-			        <label for="situacao" class="active">Situação</label>
-					  <select class="browser-default" th:field="*{situacao}" id="situacao">
-					  	<option th:each="s : ${T(br.com.jopaulo.controle.equipamento.model.Situacao).values()}"
-					  		 th:value="${s.valor}" th:text="${s.nome}"></option>
-<!-- 					    <option value="" disabled selected>Situação</option> -->
-<!-- 					    <option value="Em aberto">Em aberto</option> -->
-<!-- 					    <option value="Resolvido">Resolvido</option> -->
-<!-- 					    <option value="Não resolvido">Não resolvido</option> -->
-					  </select>
-				 </div>
-		      </div>
-		
-				<button class="btn waves-effect waves-light" type="submit"	name="action">Salvar 
-					<i class="material-icons right">save</i>
-				</button>
+				<div th:each="m : ${msg}">
+					<span th:text="${m}"> </span>
+				</div>
+				<br />
 				
-				<button class="btn waves-effect waves-light" type="reset" onclick="document.getElmentById('formcliente').reset();">	Limpar
-					<i class="material-icons right">clear</i>
-				</button>
-				<br> <br>
+			      <div class="row">
+			        <div class="input-field col s1">
+					  <i class="material-icons prefix">fingerprint</i>
+			          <input name="id" th:field="*{id}" readonly="readonly">
+			        </div>  
+			      </div>      
+			      
+			      <div class="row">
+			        <div class="input-field col s6">
+			          <i class="material-icons prefix">account_circle</i>
+			          <input name="nome" id="nome" type="text" class="validate" th:field="*{nome}">
+			          <label for="nome">Nome</label>
+			        </div>  
+			      </div>
+			      
+			      <div class="row">
+			        <div class="input-field col s3">
+			          <i class="material-icons prefix">phone</i>
+			          <input name="telefone" id="telefone" type="text" class="validate" th:field="*{telefone}" onkeypress="$(this).mask('(00) 00000-0000')">
+			          <label for="telefone">Telefone</label>
+			        </div>
+			        <div class="input-field col s3">
+			          <i class="material-icons prefix">mail_outline</i>
+			          <input id="email" type="email" class="validate" th:field="*{email}">
+			          <label for="email">Email</label>
+			        </div>
+			      </div>
+			      
+			      <div class="row">
+			        <div class="input-field col s3">
+			          <i class="material-icons prefix">room</i>         
+			          <input name="cep" id="cep" type="text" class="validate" th:field="*{cep}" onkeypress="$(this).mask('00000-000')">
+			          <label for="cep">CEP</label>
+			        </div>
+			        <div class="input-field col s3">
+			          <input name="bairro" id="bairro" type="text" class="validate" th:field="*{bairro}">
+			          <label for="bairro">Bairro</label>
+			        </div>
+			      </div>
+			      
+			      <div class="row">
+			        <div class="input-field col s5">
+			          <i class="material-icons prefix">home</i>         
+			          <input name="endereco" id="rua" type="text" class="validate" th:field="*{endereco}">
+			          <label for="endereco">Endereço</label>
+			        </div>
+			        <div class="input-field col s1">
+			          <input name="numero" id="numero" type="text" class="validate" th:field="*{numero}">
+			          <label for="numero">N°</label>
+			        </div>
+			      </div>
+			      
+			      <div class="row">
+			        <div class="input-field col s5">
+			          <i class="material-icons prefix">location_city</i>         
+			          <input name="cidade" id="cidade" type="text" class="validate" th:field="*{cidade}">
+			          <label for="cidade">Cidade</label>
+			        </div>
+			        <div class="input-field col s1">
+			          <input name=uf id="uf" type="text" class="validate" th:field="*{uf}">
+			          <label for="uf">Estado</label>
+			        </div>
+			      </div>
+			      
+			      <div class="row">
+			        <div class="input-field col s5">
+			          <i class="material-icons prefix">laptop_mac</i>
+			          <input name="equipamento" id="equipamento" type="text" class="validate" th:field="*{equipamento}">
+			          <label for="equipamento">Equipamento (marca/modelo)</label>
+			        </div>
+			        <div class="input-field col s1">
+<!-- 			          <i class="material-icons prefix">photo</i> -->
+			          <input name="file" id="file" type="file" class="validate" >
+<!-- 			          <label for="file">Foto</label> -->
+			        </div>  
+			      </div>
+			      
+			      <div class="row">
+			        <div class="input-field col s12">
+			          <i class="material-icons prefix">build</i>
+			          <input name="problema" id="problema" type="text" class="validate" th:field="*{problema}" >
+			          <label for="problema">Problema</label>
+			        </div>  
+			      </div>
+			      
+			      <div class="row">
+			        <div class="input-field col s3">
+			          <i class="material-icons prefix">date_range</i>
+			          <input name="entrada" id="entrada" type="date" placeholder="Data de entrada do equipamento" th:field="*{entrada}" required="required">
+			          <label for=entrada class="active">Entrada</label>
+			        </div> 
+			        
+			        <div class="input-field col s3">
+			          <i class="material-icons prefix">date_range</i>
+			          <input name="saida" id="saida" type="date" placeholder="Data de saida do equipamento" th:field="*{saida}" >
+			          <label for=saida class="active">Saída</label>
+			        </div>
+			        
+			        <div class="input-field col s3">
+				        <label for="situacao" class="active">Situação</label>
+						  <select class="browser-default" th:field="*{situacao}" id="situacao">
+						  	<option th:each="s : ${T(br.com.jopaulo.controle.equipamento.model.Situacao).values()}"
+						  		 th:value="${s.valor}" th:text="${s.nome}"></option>
+						  </select>
+					 </div>
+			      </div>
+			
+					<button class="btn waves-effect waves-light" type="submit"	name="action">Salvar 
+						<i class="material-icons right">save</i>
+					</button>
+					
+					<button class="btn waves-effect waves-light" type="reset" onclick="document.getElmentById('formcliente').reset();">	Limpar
+						<i class="material-icons right">clear</i>
+					</button>
+					<br> <br>
 			</form>    
 	  	</div>
   	</fieldset>
@@ -228,7 +234,12 @@
     <script>
 
         $(document).ready(function() {
-
+			
+//         	$('#entrada').datepicker({
+//         		showOthermonths:false,
+//         		format: 'yyyy-mm-dd'
+//         	});
+        	
             function limpa_formulário_cep() {
                 // Limpa valores do formulário de cep.
                 $("#rua").val("");
