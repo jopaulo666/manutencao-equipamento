@@ -187,4 +187,21 @@ public class ClienteController {
 		
 		return andView;
 	}
+	
+	@GetMapping("**/baixarfoto/{idcliente}")
+	public void baixarFoto(@PathVariable("idcliente") Long idcliente, HttpServletResponse response) throws IOException {
+		
+		Cliente cliente = clienteRepository.findById(idcliente).get();
+		
+		if (cliente.getFoto() != null) {
+			response.setContentLength(cliente.getFoto().length); // tamanho
+			response.setContentType(cliente.getTipoFileFoto()); // tipo
+			String headerKey = "Content-Disposition";		    // resposta
+			String headerValue = String.format("attachment; filename=\"%s\"", cliente.getNomeFileFoto());
+			response.setHeader(headerKey, headerValue);
+			response.getOutputStream().write(cliente.getFoto()); // finaliza passando o arquivo
+		}
+		
+		
+	}
 }

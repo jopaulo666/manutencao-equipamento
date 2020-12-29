@@ -116,11 +116,14 @@
 			          <input name="equipamento" id="equipamento" type="text" class="validate" th:field="*{equipamento}">
 			          <label for="equipamento">Equipamento (marca/modelo)</label>
 			        </div>
-			        <div class="input-field col s1">
-<!-- 			          <i class="material-icons prefix">photo</i> -->
-			          <input name="file" id="file" type="file" class="validate" >
-<!-- 			          <label for="file">Foto</label> -->
-			        </div>  
+<!-- 			        <div class="input-field col s1"> -->
+			        	<div class="file-field input-field">
+     						<div class="btn">
+     							<span>Foto</span>
+			          			<input name="file" id="file" type="file" class="file-field input-field" >
+		          			</div>
+	          			</div>
+<!-- 			        </div>   -->
 			      </div>
 			      
 			      <div class="row">
@@ -214,6 +217,8 @@
 					<td th:text = "${cliente.telefone}"></td>
 					<td th:text = "${cliente.email}"></td>
 					<td th:text = "${cliente.equipamento}"></td>
+					<td th:text = "${cliente.foto}"></td>
+					<td><a th:href="@{/baixarfoto/{idcliente}(idcliente=${cliente.id})}">Download</a></td>
 					<td th:text = "${cliente.situacao}"></td>
 					<td><a th:href="@{/editarcliente/{idcliente}(idcliente=${cliente.id})}">Editar</a></td>
 					<td><a th:href="@{/excluircliente/{idcliente}(idcliente=${cliente.id})}">Excluir</a></td>
