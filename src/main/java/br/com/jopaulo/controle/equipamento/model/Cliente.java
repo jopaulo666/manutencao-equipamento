@@ -66,6 +66,10 @@ public class Cliente implements Serializable {
 	@Lob
 	private byte[] foto;
 	
+	private String nomeFileFoto;
+	
+	private String tipoFileFoto;
+	
 	public byte[] getFoto() {
 		return foto;
 	}
@@ -196,6 +200,22 @@ public class Cliente implements Serializable {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	public String getNomeFileFoto() {
+		return nomeFileFoto;
+	}
+
+	public void setNomeFileFoto(String nomeFileFoto) {
+		this.nomeFileFoto = nomeFileFoto;
+	}
+
+	public String getTipoFileFoto() {
+		return tipoFileFoto;
+	}
+
+	public void setTipoFileFoto(String tipoFileFoto) {
+		this.tipoFileFoto = tipoFileFoto;
 	}
 
 }

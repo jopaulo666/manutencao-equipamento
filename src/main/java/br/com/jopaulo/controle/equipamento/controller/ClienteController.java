@@ -63,10 +63,14 @@ public class ClienteController {
 		
 		if (file.getSize() > 0) {
 			cliente.setFoto(file.getBytes());
+			cliente.setNomeFileFoto(file.getOriginalFilename());
+			cliente.setTipoFileFoto(file.getContentType());
 		} else {
 			if (cliente.getId() != null && cliente.getId() > 0) { // editando
-				byte[] fotoTemp = clienteRepository.findById(cliente.getId()).get().getFoto();
-				cliente.setFoto(fotoTemp);
+				Cliente clienteTemp = clienteRepository.findById(cliente.getId()).get();
+				cliente.setFoto(clienteTemp.getFoto());
+				cliente.setNomeFileFoto(clienteTemp.getNomeFileFoto());
+				cliente.setTipoFileFoto(clienteTemp.getTipoFileFoto());
 			}
 		}
 		
