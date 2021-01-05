@@ -116,14 +116,14 @@
 			          <input name="equipamento" id="equipamento" type="text" class="validate" th:field="*{equipamento}">
 			          <label for="equipamento">Equipamento (marca/modelo)</label>
 			        </div>
-<!-- 			        <div class="input-field col s1"> -->
-			        	<div class="file-field input-field">
-     						<div class="btn">
+			        <div class="input-field col s1">
+<!-- 			        	<div class="file-field input-field"> -->
+<!--      						<div class="btn"> -->
      							<span>Foto</span>
-			          			<input name="file" id="file" type="file" class="file-field input-field" >
-		          			</div>
-	          			</div>
-<!-- 			        </div>   -->
+			          			<input name="file" id="file" type="file" class="validate" >
+<!-- 		          			</div> -->
+<!-- 	          			</div> -->
+			        </div>  
 			      </div>
 			      
 			      <div class="row">
@@ -151,7 +151,8 @@
 				        <label for="situacao" class="active">Situação</label>
 						  <select class="browser-default" th:field="*{situacao}" id="situacao">
 						  	<option th:each="s : ${T(br.com.jopaulo.controle.equipamento.model.Situacao).values()}"
-						  		 th:value="${s.valor}" th:text="${s.nome}"></option>
+						  		 th:value="${s.valor}" th:text="${s.nome}">
+					  		 </option>
 						  </select>
 					 </div>
 			      </div>
@@ -178,7 +179,7 @@
 						<i class="material-icons prefix">search</i>
 			            <label for="nomepesquisa" class="active">Pesquia por nome:</label>
 						<input name="nomepesquisa" id="nomepesquisa" type="text" class="validate" 
-						th:value="${nomepesquisa}">
+							th:value="${nomepesquisa}">
 					</div>
 					
 					<div class="input-field col s3">
@@ -213,13 +214,16 @@
 		        <tbody>
 		          <tr th:each = "cliente : ${clientes}">
 		           <td th:text = "${cliente.id}"></td>
-					<td><a th:href="@{/detalhecliente/{idcliente}(idcliente=${cliente.id})}"><span th:text = "${cliente.nome}"></span></a></td>
+					<td><a th:href="@{/detalhecliente/{idcliente}(idcliente=${cliente.id})}" style="color: black;" title="Detalhes"><span th:text = "${cliente.nome}"></span></a></td>
 					<td th:text = "${cliente.telefone}"></td>
 					<td th:text = "${cliente.email}"></td>
 					<td th:text = "${cliente.equipamento}"></td>
-					<td th:text = "${cliente.foto}"></td>
-					<td><a th:href="@{/baixarfoto/{idcliente}(idcliente=${cliente.id})}">Download</a></td>
+<!-- 					<td th:text = "${cliente.foto}"></td> -->
 					<td th:text = "${cliente.situacao}"></td>
+					<td>
+						<a th:if="${cliente.foto != null}" th:href="@{/baixarfoto/{idcliente}(idcliente=${cliente.id})}">Download</a>
+						<a th:if="${cliente.foto == null}" style="color: red;">Nada consta</a>
+					</td>				
 					<td><a th:href="@{/editarcliente/{idcliente}(idcliente=${cliente.id})}">Editar</a></td>
 					<td><a th:href="@{/excluircliente/{idcliente}(idcliente=${cliente.id})}">Excluir</a></td>
 		          <tr>
