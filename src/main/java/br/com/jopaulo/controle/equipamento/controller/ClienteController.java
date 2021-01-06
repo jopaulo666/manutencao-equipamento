@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -34,11 +36,11 @@ public class ClienteController {
 	@Autowired
 	private ReportUtil reportUtil;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/cadastro-cliente")
-	public ModelAndView inicio() {
-		
+	@RequestMapping(method = RequestMethod.GET, value = "**/cadastro-cliente")
+	public ModelAndView inicio() {		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
 		andView.addObject("clienteobj", new Cliente());
+		andView.addObject("clientes", clienteRepository.findAll(PageRequest.of(0, 5, Sort.by("id"))));
 		
 		return andView;
 	}
@@ -48,8 +50,7 @@ public class ClienteController {
 		
 		if (bindingResult.hasErrors()) {
 			ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
-			Iterable<Cliente> clientesIt = clienteRepository.findAll();
-			andView.addObject("clientes", clientesIt);
+			andView.addObject("clientes", clienteRepository.findAll(PageRequest.of(0, 5, Sort.by("id"))));
 			andView.addObject("clienteobj", cliente);
 			
 			List<String> msg = new ArrayList<String>();
@@ -77,8 +78,7 @@ public class ClienteController {
 		clienteRepository.save(cliente);
 		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
-		Iterable<Cliente> clientesIt = clienteRepository.findAll();
-		andView.addObject("clientes", clientesIt);
+		andView.addObject("clientes", clienteRepository.findAll(PageRequest.of(0, 5, Sort.by("id"))));
 		andView.addObject("clienteobj", new Cliente());
 		
 		return andView;
@@ -88,8 +88,7 @@ public class ClienteController {
 	public ModelAndView clientes() {
 		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
-		Iterable<Cliente> clientesIt = clienteRepository.findAll();
-		andView.addObject("clientes", clientesIt);
+		andView.addObject("clientes", clienteRepository.findAll(PageRequest.of(0, 5, Sort.by("id"))));
 		andView.addObject("clienteobj", new Cliente());
 		return andView;
 	}
@@ -111,7 +110,7 @@ public class ClienteController {
 		clienteRepository.deleteById(idcliente);
 		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
-		andView.addObject("clientes", clienteRepository.findAll());
+		andView.addObject("clientes", clienteRepository.findAll(PageRequest.of(0, 5, Sort.by("id"))));
 		andView.addObject("clienteobj", new Cliente());
 		
 		return andView;
