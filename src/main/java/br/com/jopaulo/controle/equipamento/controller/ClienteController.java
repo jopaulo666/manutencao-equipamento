@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -42,6 +45,15 @@ public class ClienteController {
 		andView.addObject("clienteobj", new Cliente());
 		andView.addObject("clientes", clienteRepository.findAll(PageRequest.of(0, 5, Sort.by("id"))));
 		
+		return andView;
+	}
+	
+	@GetMapping("/clientespag")
+	public ModelAndView carregaClientePorPaginacao(@PageableDefault(size = 5) Pageable pageable, ModelAndView andView) {
+		Page<Cliente> pageCliente = clienteRepository.findAll(pageable);
+		andView.addObject("clientes", pageCliente);
+		andView.addObject("clienteobj", new Cliente());
+		andView.setViewName("cadastro/cadastro-cliente");
 		return andView;
 	}
 	

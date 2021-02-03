@@ -211,8 +211,21 @@
 	<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
 		<div class="col s12">
 			<table class="striped">
+				<thead>
+					<tr>
+						<th>Cód</th>
+						<th>Nome</th>
+						<th>Telefone</th>
+						<th>E-mail</th>
+						<th>Aparelho</th>
+						<th>Situação</th>
+						<th>Foto</th>
+						<th>Editar</th>
+						<th>Excluir</th>
+					</tr>
+				</thead>
 		        <tbody>
-		          <tr th:each = "cliente : ${clientes}">
+		          <tr th:each = "cliente : ${clientes.content}">
 		           <td th:text = "${cliente.id}"></td>
 					<td><a th:href="@{/detalhecliente/{idcliente}(idcliente=${cliente.id})}" style="color: black;" title="Detalhes"><span th:text = "${cliente.nome}"></span></a></td>
 					<td th:text = "${cliente.telefone}"></td>
