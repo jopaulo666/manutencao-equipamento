@@ -54,7 +54,7 @@ public class ClienteController {
 		andView.addObject("clientes", pageCliente);
 		andView.addObject("clienteobj", new Cliente());
 		andView.setViewName("cadastro/cadastro-cliente");
-		return andView;
+		return andView; 
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarcliente", consumes = {"multipart/form-data"})

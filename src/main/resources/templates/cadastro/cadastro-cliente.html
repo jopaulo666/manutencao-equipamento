@@ -23,13 +23,19 @@
  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css">
 
- <style type="text/css">
- 	body {
+<style type="text/css">
+body {
 	margin-left: 5%;
 	margin-right: 5%;
 }
- </style>
+
+table {
+	width: 100%;
+}
+
+</style>
 </head>
+
 <body>
 
 	<h5 style="text-align: center;">Novo cliente</h5>
@@ -210,7 +216,7 @@
 	
 	<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
 		<div class="col s12">
-			<table class="striped">
+			<table class="responsive-table highlight">
 				<thead>
 					<tr>
 						<th>Cód</th>
@@ -234,14 +240,44 @@
 <!-- 					<td th:text = "${cliente.foto}"></td> -->
 					<td th:text = "${cliente.situacao}"></td>
 					<td>
-						<a th:if="${cliente.foto != null}" th:href="@{/baixarfoto/{idcliente}(idcliente=${cliente.id})}">Download</a>
-						<a th:if="${cliente.foto == null}" style="color: red;">Nada consta</a>
+						<a th:if="${cliente.foto != null}" th:href="@{/baixarfoto/{idcliente}(idcliente=${cliente.id})}" title="Download">
+							<i class="material-icons right">file_download</i>
+						</a>
+						<a th:if="${cliente.foto == null}" style="color: red;" title="Não existe">
+							<i class="material-icons right">do_not_disturb</i>
+						</a>
 					</td>				
-					<td><a th:href="@{/editarcliente/{idcliente}(idcliente=${cliente.id})}">Editar</a></td>
-					<td><a th:href="@{/excluircliente/{idcliente}(idcliente=${cliente.id})}">Excluir</a></td>
+					<td>
+						<a th:href="@{/editarcliente/{idcliente}(idcliente=${cliente.id})}" title="Editar" style="color: green;">
+							<i class="material-icons right">edit</i>
+						</a>
+					</td>
+					<td>
+						<a th:href="@{/excluircliente/{idcliente}(idcliente=${cliente.id})}" title="Excluir" style="color: red;">
+							<i class="material-icons right">delete</i>
+						</a>
+					</td>
 		          <tr>
 		        </tbody>
 		      </table>
+		      
+		      <div class="row" style="margin-top: 30px; text-align: center;">
+		      	<span th:if="${clientes.hasPrevious()}">
+		      		<a th:href="@{/clientespag(page=${clientes.number-1}, size=${clientes.size})}">
+		      			< Anterior
+		      		</a>
+		      	</span>
+		      	
+		      	<th:block th:each="i: ${#numbers.sequence(0, clientes.totalPages - 1)}">
+		      		<a th:href="@{/clientespag(page=${i}, size=${clientes.size})}">[[ ${i} + 1 ]]</a>	
+		      	</th:block>	
+		      	
+		      	<span th:if="${clientes.hasNext()}">
+		      		<a th:href="@{/clientespag(page=${clientes.number+1}, size=${clientes.size})}">
+		      			Próximo >
+		      		</a>
+		      	</span>	   	
+		      </div>
 	      </div>
       </div>
       
@@ -252,6 +288,7 @@
 	       </div>
 	     </div>
       </footer>
+	
 	<!-- Adicionando Javascript -->
     <script>
 
