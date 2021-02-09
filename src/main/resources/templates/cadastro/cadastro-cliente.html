@@ -54,8 +54,8 @@ table {
 				
 			      <div class="row">
 			        <div class="input-field col s1">
-					  <i class="material-icons prefix">fingerprint</i>
-			          <input name="id" th:field="*{id}" readonly="readonly">
+<!-- 					  <i class="material-icons prefix">fingerprint</i> -->
+			          <input name="id" th:field="*{id}" readonly="readonly" type="hidden">
 			        </div>  
 			      </div>      
 			      
@@ -263,17 +263,17 @@ table {
 		      
 		      <div class="row" style="margin-top: 30px; text-align: center;">
 		      	<span th:if="${clientes.hasPrevious()}">
-		      		<a th:href="@{/clientespag(page=${clientes.number-1}, size=${clientes.size})}">
+		      		<a th:href="@{/clientespag(page=${clientes.number-1}, size=${clientes.size}, nomepesquisa=${nomepesquisa})}">
 		      			< Anterior
 		      		</a>
 		      	</span>
 		      	
 		      	<th:block th:each="i: ${#numbers.sequence(0, clientes.totalPages - 1)}">
-		      		<a th:href="@{/clientespag(page=${i}, size=${clientes.size})}">[[ ${i} + 1 ]]</a>	
+		      		<a th:href="@{/clientespag(page=${i}, size=${clientes.size}, nomepesquisa=${nomepesquisa})}">[[ ${i} + 1 ]]</a>	
 		      	</th:block>	
 		      	
 		      	<span th:if="${clientes.hasNext()}">
-		      		<a th:href="@{/clientespag(page=${clientes.number+1}, size=${clientes.size})}">
+		      		<a th:href="@{/clientespag(page=${clientes.number+1}, size=${clientes.size}, nomepesquisa=${nomepesquisa})}">
 		      			Próximo >
 		      		</a>
 		      	</span>	   	
@@ -284,7 +284,7 @@ table {
 	 <footer class="page-footer">
 	     <div class="footer-copyright">
 	       <div class="container">
-	       	© 2020 João Paulo da Mata Mendes
+	       		2020 © João Paulo da Mata Mendes
 	       </div>
 	     </div>
       </footer>

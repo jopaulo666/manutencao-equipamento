@@ -49,10 +49,13 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/clientespag")
-	public ModelAndView carregaClientePorPaginacao(@PageableDefault(size = 5) Pageable pageable, ModelAndView andView) {
-		Page<Cliente> pageCliente = clienteRepository.findAll(pageable);
+	public ModelAndView carregaClientePorPaginacao(@PageableDefault(size = 5) Pageable pageable, 
+			ModelAndView andView,
+			@RequestParam("nomepesquisa") String nomepesquisa) {
+		Page<Cliente> pageCliente = clienteRepository.findClienteByNamePage(nomepesquisa, pageable);
 		andView.addObject("clientes", pageCliente);
 		andView.addObject("clienteobj", new Cliente());
+		andView.addObject("nomepesquisa", nomepesquisa);
 		andView.setViewName("cadastro/cadastro-cliente");
 		return andView; 
 	}
@@ -129,19 +132,22 @@ public class ClienteController {
 	}
 	
 	@PostMapping("**/pesquisarcliente")
-	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa, @RequestParam("pesqsituacao") String pesqsituacao) {
+	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa, 
+			@RequestParam("pesqsituacao") String pesqsituacao,
+			@PageableDefault(size = 5, sort = {"id"}) Pageable pageable) {
 		
-		List<Cliente> clientes = new ArrayList<Cliente>();
+		Page<Cliente> clientes = null;
 		
 		if (pesqsituacao != null && !pesqsituacao.isEmpty()) {
-			clientes = clienteRepository.findByNameSituacaoContainingIgnoreCase(nomepesquisa, pesqsituacao);
+			clientes = clienteRepository.findClienteBySituacaoPage(nomepesquisa, pesqsituacao, pageable);
 		} else {
-			clientes = clienteRepository.findByNameContainingIgnoreCase(nomepesquisa);
+			clientes = clienteRepository.findClienteByNamePage(nomepesquisa, pageable);
 		}
 		
 		ModelAndView andView = new ModelAndView("cadastro/cadastro-cliente");
 		andView.addObject("clientes", clientes);
 		andView.addObject("clienteobj", new Cliente());
+		andView.addObject("nomepesquisa", nomepesquisa);
 		
 		return andView;
 		

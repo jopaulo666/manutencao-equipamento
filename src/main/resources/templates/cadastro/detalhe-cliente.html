@@ -111,20 +111,20 @@
 		        </div>
 		        
 		        <div class="input-field col s3">
-			        <label for="situacao" class="active">Selecione</label>
-					  <select class="browser-default" th:field="*{situacao}" disabled value="">
-	<!-- 					    <option value="" disabled selected>Situação</option> -->
-					    <option value="1">Em aberto</option>
-					    <option value="2">Resolvido</option>
-					    <option value="3">Não resolvido</option>
-					  </select>
-				 </div>
+				        <label for="situacao" class="active">Situação</label>
+						  <select class="browser-default" th:field="*{situacao}" id="situacao" disabled value="">
+						  	<option th:each="s : ${T(br.com.jopaulo.controle.equipamento.model.Situacao).values()}"
+						  		 th:value="${s.valor}" th:text="${s.nome}">
+					  		 </option>
+						  </select>
+					 </div>
 		      </div>
 				
 				<a href="/cadastro-cliente">Voltar</a>
 			</form>    
 	   </div>
    </fieldset>
+   <br><br>
 	 <footer class="page-footer">
 	     <div class="footer-copyright">
 	       <div class="container">
